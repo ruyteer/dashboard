@@ -24,7 +24,7 @@ export default function CardItem({ title, paragraf, data, icon }) {
           <h2 style={{ color: "whitesmoke", marginTop: "10px" }}>{data}</h2>
         </CardContent>
         <CardActions>
-          <Button color="secondary" href="/pedidos">
+          <Button color="secondary" href="/admin-hx/pedidos">
             saber mais
           </Button>
         </CardActions>

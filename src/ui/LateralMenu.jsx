@@ -39,7 +39,7 @@ export default function DrawerMenu() {
       </h1>
       <List>
         <ListItem disablePadding>
-          <ListItemButton href="/">
+          <ListItemButton href="/admin-hx">
             <ListItemIcon>
               <DataThresholdingIcon />
             </ListItemIcon>
@@ -50,7 +50,7 @@ export default function DrawerMenu() {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton href="/pedidos">
+          <ListItemButton href="/admin-hx/pedidos">
             <ListItemIcon>
               <PaymentsIcon />
             </ListItemIcon>
