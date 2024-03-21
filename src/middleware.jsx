@@ -15,5 +15,5 @@ export default function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/admin-hx", "/admin-hx/pedidos"],
+  matcher: ["/", "/admin-hx", "/admin-hx/pedidos"],
 };
