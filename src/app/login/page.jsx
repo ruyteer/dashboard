@@ -37,23 +37,25 @@ export default function LoginPage() {
   };
 
   return (
-    <Box
-      display={"flex"}
-      flexDirection={"column"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      height={"100vh"}
-    >
-      <h1 className="title">Dashboard Login</h1>
+    <>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        height={"100vh"}
+      >
+        <h1 className="title">Dashboard Login</h1>
 
-      <UIForm
-        username={username}
-        password={password}
-        setUsername={setUsername}
-        setPassword={setPassword}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
-    </Box>
+        <UIForm
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          handleSubmit={handleSubmit}
+          loading={loading}
+        />
+      </Box>
+    </>
   );
 }

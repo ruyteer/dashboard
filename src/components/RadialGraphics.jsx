@@ -1,5 +1,7 @@
 "use client";
-import Chart from "react-apexcharts";
+import dynamic from "next/dynamic";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { getProductMetrics } from "@/data/getMetrics";
 import { Paper } from "@mui/material";
 
