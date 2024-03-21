@@ -29,7 +29,7 @@ export default function LoginPage() {
     if (response.ok) {
       // localStorage.setItem("adminToken", accessData.token);
       setCookie("token", accessData.token);
-      router.push("/admin-hx");
+      router.push("/");
     } else {
       setLoading(false);
       errorToast("Usuário ou senha incorretos!");
