@@ -1,7 +1,7 @@
 "use client";
 import { alertToast, successToast } from "@/config/toast";
 import { getOrderData } from "@/data/dataGridConfig";
-import { getMetrics } from "@/data/getMetrics";
+import { getMetrics, getProductMetrics } from "@/data/getMetrics";
 import React, { createContext, useState, useEffect, useContext } from "react";
 
 const MetricsContext = createContext();
@@ -15,6 +15,21 @@ export const MetricsProvider = ({ children }) => {
     mp: 1,
     pix: 1,
   });
+
+  const [topProducts, setTopProducts] = useState([
+    {
+      name: "Omega LA",
+      salesCount: 245,
+    },
+    {
+      name: "Omega NA",
+      salesCount: 423,
+    },
+    {
+      name: "Alpha LA",
+      salesCount: 500,
+    },
+  ]);
 
   const [orders, setOrders] = useState([
     {
@@ -32,6 +47,11 @@ export const MetricsProvider = ({ children }) => {
     },
   ]);
 
+  const fetchTopProducts = async () => {
+    const topProduct = await getProductMetrics();
+    setTopProducts(topProduct);
+  };
+
   const fetchMetrics = async () => {
     const data = await getMetrics();
     setMetrics(data);
@@ -44,11 +64,13 @@ export const MetricsProvider = ({ children }) => {
 
   useEffect(() => {
     fetchMetrics();
+    fetchTopProducts();
     fetchOrders();
   }, []);
 
   const updateMetrics = async () => {
     await fetchMetrics();
+    await fetchTopProducts();
   };
 
   const updateOrders = async () => {
@@ -109,6 +131,7 @@ export const MetricsProvider = ({ children }) => {
         updateOrders,
         deleteOrder,
         approveOrder,
+        topProducts,
       }}
     >
       {children}

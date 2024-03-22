@@ -76,6 +76,14 @@ const orderColumns = [
     },
   },
   {
+    field: "product",
+    headerName: "Produto",
+    renderCell: ({ row }) => {
+      return <>{row.productName}</>;
+    },
+    width: 140,
+  },
+  {
     field: "quantity",
     headerName: "Quantidade",
   },
@@ -153,9 +161,11 @@ const orderColumns = [
 async function getOrderData() {
   const responseOrders = await fetch("https://api.haxtera.com/order");
   const responseUsers = await fetch("https://api.haxtera.com/user");
+  const responseProducts = await fetch("https://api.haxtera.com/product");
 
   const orders = await responseOrders.json();
   const users = await responseUsers.json();
+  const products = await responseProducts.json();
 
   const sortedOrders = orders.sort((a, b) => {
     const dateA = new Date(
@@ -175,15 +185,31 @@ async function getOrderData() {
 
   const ordersWithUsers = sortedOrders.map((order) => {
     const user = users.find((user) => user.id === order.userId);
-    return {
-      ...order,
-      username: user ? user.name : "Nome não encontrado",
-    };
+    if (
+      order.products[0].includes("Dashbot") ||
+      order.products[0].includes("Nenbot")
+    ) {
+      return {
+        ...order,
+        username: user ? user.name : "Nome não encontrado",
+        productName: order.products[0],
+      };
+    } else {
+      const product = products.find(
+        (result) => result.id === order.products[0]
+      );
+
+      return {
+        ...order,
+        username: user ? user.name : "Nome não encontrado",
+        productName: product ? product.name : "Produto não encontrado",
+      };
+    }
   });
 
   let orderRows = [];
 
-  ordersWithUsers.map((result, index) =>
+  ordersWithUsers.map(async (result, index) =>
     orderRows.push({
       orderId: result.id,
       id: index + 1,
@@ -196,6 +222,7 @@ async function getOrderData() {
       paymentIntent: result.paymentIntent,
       voucher: result.voucher,
       date: result.date,
+      productName: result.productName,
     })
   );
 

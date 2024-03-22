@@ -1,12 +1,13 @@
 "use client";
+import { Paper } from "@mui/material";
+import { useMetrics } from "@/context/MetricsContext";
+import { Analytics } from "@mui/icons-material";
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { getProductMetrics } from "@/data/getMetrics";
-import { Paper } from "@mui/material";
 
 export default async function RadialGraphics() {
-  const topProducts = await getProductMetrics();
+  const { topProducts } = useMetrics();
 
   return (
     <Paper
@@ -27,14 +28,18 @@ export default async function RadialGraphics() {
         className="title"
         style={{
           marginBottom: "20px",
+          display: " flex",
+          alignItems: "center",
+          gap: "10px",
         }}
       >
-        Produtos mais vendidos
+        <Analytics /> Produtos mais vendidos
       </h1>
       <Chart
         options={{
           chart: {
             id: "product",
+            height: 350,
           },
 
           colors: ["#8622aa", "#223faa", "#46aa22"],

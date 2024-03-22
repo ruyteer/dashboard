@@ -103,13 +103,14 @@ async function getProductMetrics() {
 
   // Pegar os top 3 produtos
   const topProducts = await Promise.all(
-    sortedProducts.slice(0, 3).map(async (product) => {
+    sortedProducts.slice(0, 4).map(async (product) => {
       const productDetails = await getProductById(product.product);
-      return { ...productDetails, salesCount: product.count };
+
+      return { name: productDetails.name, salesCount: product.count };
     })
   );
-
-  return topProducts;
+  const filteredTopProducts = topProducts.filter((_, index) => index !== 2);
+  return filteredTopProducts;
 }
 
 async function getProductById(id) {
