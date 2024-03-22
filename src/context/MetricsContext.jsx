@@ -2,6 +2,7 @@
 import { alertToast, successToast } from "@/config/toast";
 import { getOrderData } from "@/data/dataGridConfig";
 import { getMetrics, getProductMetrics } from "@/data/getMetrics";
+import { getProductData } from "@/data/productDataGridConfig";
 import React, { createContext, useState, useEffect, useContext } from "react";
 
 const MetricsContext = createContext();
@@ -15,6 +16,19 @@ export const MetricsProvider = ({ children }) => {
     mp: 1,
     pix: 1,
   });
+
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      productId: "",
+      name: "",
+      price: 0,
+      categoryName: "",
+      description: "",
+      images: [""],
+      stock: 0,
+    },
+  ]);
 
   const [topProducts, setTopProducts] = useState([
     {
@@ -47,6 +61,11 @@ export const MetricsProvider = ({ children }) => {
     },
   ]);
 
+  const fetchProducts = async () => {
+    const data = await getProductData();
+    setProducts(data);
+  };
+
   const fetchTopProducts = async () => {
     const topProduct = await getProductMetrics();
     setTopProducts(topProduct);
@@ -65,6 +84,7 @@ export const MetricsProvider = ({ children }) => {
   useEffect(() => {
     fetchMetrics();
     fetchTopProducts();
+    fetchProducts();
     fetchOrders();
   }, []);
 
@@ -75,6 +95,9 @@ export const MetricsProvider = ({ children }) => {
 
   const updateOrders = async () => {
     await fetchOrders();
+  };
+  const updateProducts = async () => {
+    await fetchProducts();
   };
 
   const deleteOrder = async (idList) => {
@@ -122,6 +145,31 @@ export const MetricsProvider = ({ children }) => {
     setOrders(updateOrders);
   };
 
+  const deleteProduct = async (selectedProducts) => {
+    if (selectedProducts.size === 0) {
+      return alertToast("Selecione ao menos um produto!");
+    }
+
+    selectedProducts.forEach(async (result) => {
+      try {
+        await fetch(
+          `https://api.haxtera.com/product/delete/${result.productId}`,
+          {
+            method: "DELETE",
+          }
+        );
+      } catch {}
+    });
+    let updatedProducts = products;
+
+    selectedProducts.forEach((result) => {
+      updatedProducts = updatedProducts.filter(
+        (product) => product.id !== result.id
+      );
+    });
+    setProducts(updatedProducts);
+  };
+
   return (
     <MetricsContext.Provider
       value={{
@@ -132,6 +180,9 @@ export const MetricsProvider = ({ children }) => {
         deleteOrder,
         approveOrder,
         topProducts,
+        updateProducts,
+        products,
+        deleteProduct,
       }}
     >
       {children}

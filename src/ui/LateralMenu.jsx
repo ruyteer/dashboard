@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import DataThresholdingIcon from "@mui/icons-material/DataThresholding";
 import GroupIcon from "@mui/icons-material/Group";
-import { Menu } from "@mui/icons-material";
+import { Category, Menu } from "@mui/icons-material";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -56,6 +56,18 @@ export default function DrawerMenu() {
             </ListItemIcon>
 
             <ListItemText primary={"Pedidos"} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton href="/produtos">
+            <ListItemIcon>
+              <Category />
+            </ListItemIcon>
+
+            <ListItemText primary={"Produtos"} />
           </ListItemButton>
         </ListItem>
       </List>

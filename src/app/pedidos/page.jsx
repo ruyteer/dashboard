@@ -1,6 +1,7 @@
 "use client";
 import OrderButtonActions from "@/components/OrderButtonActions";
 import OrderDataGrid from "@/components/OrderDataGrid";
+import BoxCenter from "@/ui/BoxCenter";
 import { Box, Skeleton } from "@mui/material";
 import { useGridApiRef } from "@mui/x-data-grid";
 import { Suspense } from "react";
@@ -10,12 +11,7 @@ export default function OrderPage() {
 
   return (
     <>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-      >
+      <BoxCenter>
         <OrderButtonActions apiRef={apiRef} />
         <Suspense
           fallback={
@@ -32,7 +28,7 @@ export default function OrderPage() {
         >
           <OrderDataGrid apiRef={apiRef} />
         </Suspense>
-      </Box>
+      </BoxCenter>
     </>
   );
 }
