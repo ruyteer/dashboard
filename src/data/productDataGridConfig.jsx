@@ -1,4 +1,4 @@
-import { Avatar, Chip } from "@mui/material";
+import { Avatar, Chip, Switch } from "@mui/material";
 import Link from "next/link";
 
 const productColumns = [
@@ -6,7 +6,7 @@ const productColumns = [
     field: "image",
     headerName: "Imagem",
     renderCell: ({ row }) => (
-      <Link href={row.images[0]}>
+      <Link href={row.images[0] || "Imagem Não Enviada"}>
         <Avatar src={row.images[0]} alt={row.name} />
       </Link>
     ),
@@ -40,6 +40,31 @@ const productColumns = [
       </>
     ),
   },
+  {
+    field: "avaiableStock",
+    headerName: "Estoque Disponível",
+    width: 180,
+    renderCell: ({ row }) => (
+      <>
+        <Switch
+          color="success"
+          onChange={async (e) => {
+            await fetch(
+              `https://api.haxtera.com/product/update/stock/${row.productId}`,
+              {
+                method: "PUT",
+                body: JSON.stringify({ stockAvaiable: e.target.checked }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          }}
+          defaultChecked={row.stockAvaiable}
+        />
+      </>
+    ),
+  },
 ];
 
 async function getProductData() {
@@ -48,6 +73,7 @@ async function getProductData() {
 
   const products = await productsResponse.json();
   const categories = await categoryResponse.json();
+  console.log(products);
 
   const productsWithCategory = products.map((product, index) => {
     const category = categories.find(

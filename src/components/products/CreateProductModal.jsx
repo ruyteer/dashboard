@@ -1,9 +1,10 @@
+import { errorToast, successToast } from "@/config/toast";
 import { getCategoryByName } from "@/data/categoryOptions";
 import FormModal from "@/ui/FormModal";
 import { Create } from "@mui/icons-material";
 import { useState } from "react";
 
-export default async function CreateProductModal() {
+export default async function CreateProductModal({ closeModal }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = async (e) => {
@@ -20,7 +21,11 @@ export default async function CreateProductModal() {
     );
 
     if (response.ok) {
-      console.log("ok");
+      successToast("Produto criado com sucesso!");
+      closeModal(false);
+    } else {
+      const errorResponse = await response.json();
+      errorToast(`Houve um erro ao criar o produto! Log: ${errorResponse}`);
     }
   };
 
@@ -29,6 +34,7 @@ export default async function CreateProductModal() {
       <FormModal
         handleSubmit={handleSubmit}
         setInputValue={setInputValue}
+        closeModal={closeModal}
         title={
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Create /> Criar Produto

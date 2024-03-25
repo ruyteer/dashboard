@@ -185,14 +185,17 @@ async function getOrderData() {
 
   const ordersWithUsers = sortedOrders.map((order) => {
     const user = users.find((user) => user.id === order.userId);
+
     if (
-      order.products[0].includes("Dashbot") ||
-      order.products[0].includes("Nenbot")
+      order.products[0].toLowerCase().includes("dashbot") ||
+      order.products[0].toLowerCase().includes("nenbot")
     ) {
       return {
         ...order,
         username: user ? user.name : "Nome não encontrado",
-        productName: order.products[0],
+        productName:
+          order.products[0].charAt(0).toUpperCase() +
+          order.products[0].slice(1),
       };
     } else {
       const product = products.find(

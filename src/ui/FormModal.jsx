@@ -11,12 +11,20 @@ import { useState } from "react";
 import { NumericFormatCustom } from "./NumericFormatCustom";
 import { FileUpload } from "@mui/icons-material";
 import { categoryOptions } from "@/data/categoryOptions";
+import { LoadingButton } from "@mui/lab";
 
-export default function FormModal({ title, handleSubmit, setInputValue }) {
+export default function FormModal({
+  title,
+  handleSubmit,
+  setInputValue,
+  closeModal,
+}) {
+  const [loading, setLoading] = useState(false);
+
   return (
     <>
       <BoxCenter height={"100vh"}>
-        <Paper variant="outlined" sx={{ padding: 7, width: 600 }}>
+        <Paper variant="outlined" sx={{ padding: 6, width: 600 }}>
           <BoxCenter>
             <h1 className="title">{title}</h1>
 
@@ -109,7 +117,7 @@ export default function FormModal({ title, handleSubmit, setInputValue }) {
                     color="secondary"
                     options={categoryOptions}
                     renderInput={(params) => (
-                      <TextField {...params} label="Categoria" />
+                      <TextField required {...params} label="Categoria" />
                     )}
                   />
                 </FormControl>
@@ -121,9 +129,20 @@ export default function FormModal({ title, handleSubmit, setInputValue }) {
                 fullWidth
                 type="submit"
                 sx={{ marginTop: 3 }}
+                disableFocusRipple
+                onClick={() => setLoading(true)}
               >
                 Enviar
               </Button>
+              <LoadingButton
+                variant="text"
+                color="inherit"
+                fullWidth
+                onClick={() => closeModal(false)}
+                sx={{ marginTop: 1 }}
+              >
+                Fechar
+              </LoadingButton>
             </form>
           </BoxCenter>
         </Paper>

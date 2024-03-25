@@ -27,6 +27,7 @@ export const MetricsProvider = ({ children }) => {
       description: "",
       images: [""],
       stock: 0,
+      stockAvaiable: true,
     },
   ]);
 

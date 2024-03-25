@@ -15,7 +15,12 @@ export default function ProductButtonActions({ apiRef }) {
 
   return (
     <>
-      <Modal open={createModalOpen} children={<CreateProductModal />} />
+      <Modal
+        open={createModalOpen}
+        children={<CreateProductModal closeModal={setCreateModalOpen} />}
+        onClose={() => setCreateModalOpen(false)}
+        closeAfterTransition
+      />
       <Box
         display={"flex"}
         marginTop={10}
