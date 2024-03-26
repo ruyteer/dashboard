@@ -26,7 +26,7 @@ export default function RootLayout(props) {
             <CssBaseline />
 
             <NavbarGlobal />
-            {/* <PushNotifications /> */}
+            <PushNotifications />
             <ToastContainer />
             {props.children}
           </ThemeProvider>
