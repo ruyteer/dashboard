@@ -3,8 +3,9 @@ import { socket } from "@/config/socket";
 import { useMetrics } from "@/context/MetricsContext";
 import { orderColumns } from "@/data/dataGridConfig";
 import { Box } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
+import QuickSearchToolbar from "./GridSearchToolbar";
 
 export default async function OrderDataGrid({ apiRef }) {
   const { orders, updateOrders } = useMetrics();
@@ -27,6 +28,12 @@ export default async function OrderDataGrid({ apiRef }) {
               paginationModel: {
                 pageSize: 10,
               },
+            },
+          }}
+          slots={{ toolbar: QuickSearchToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
             },
           }}
           checkboxSelection
