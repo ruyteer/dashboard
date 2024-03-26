@@ -1,7 +1,7 @@
 "use client";
 import { socket } from "@/config/socket";
 import { useEffect } from "react";
-import { addNotification } from "react-push-notification";
+import addNotification from "react-push-notification";
 
 export default function PushNotifications() {
   useEffect(() => {
