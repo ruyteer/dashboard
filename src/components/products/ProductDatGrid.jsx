@@ -13,6 +13,9 @@ export default async function ProductDataGrid({ apiRef }) {
     socket.on("new order", async () => {
       await updateProducts();
     });
+    socket.on("new update", () => {
+      updateProducts();
+    });
   }, [socket]);
 
   return (

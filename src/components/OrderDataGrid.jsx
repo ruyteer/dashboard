@@ -14,6 +14,9 @@ export default async function OrderDataGrid({ apiRef }) {
     socket.on("new order", () => {
       updateOrders();
     });
+    socket.on("new update", () => {
+      updateOrders();
+    });
   }, [socket]);
 
   return (
