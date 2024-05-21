@@ -40,7 +40,7 @@ export default function Home() {
           </Suspense>
 
           <Suspense fallback={<CircularProgress color="secondary" size={50} />}>
-            <RadialGraphics />
+            {/*<RadialGraphics />*/}
           </Suspense>
         </Box>
         <Box
@@ -52,11 +52,11 @@ export default function Home() {
           marginBottom={10}
         >
           <Suspense fallback={<CardsLoading />}>
-            <CardListInfos />
+            {/*<CardListInfos />*/}
           </Suspense>
 
           <Suspense fallback={<CircularProgress color="secondary" size={50} />}>
-            <Graphics />
+            {/*<Graphics />*/}
           </Suspense>
         </Box>
       </main>
