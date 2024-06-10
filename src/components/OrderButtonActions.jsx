@@ -3,6 +3,7 @@ import { AddTask, Delete, InfoOutlined } from "@mui/icons-material";
 import { Box, Button, IconButton, Modal, Tooltip } from "@mui/material";
 import { useState } from "react";
 import InfoModal from "./InfoModal";
+import { GetTotalMonth } from "./GetTotalMonth";
 
 export default function OrderButtonActions({ apiRef }) {
   const { deleteOrder, approveOrder } = useMetrics();
@@ -60,6 +61,7 @@ export default function OrderButtonActions({ apiRef }) {
         >
           Aprovar
         </Button>
+        <GetTotalMonth />
       </Box>
     </>
   );
